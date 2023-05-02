@@ -4,11 +4,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PactNet.Provider", "PactNet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PactNet.ConsumerOne", "PactNet.ConsumerOne\PactNet.ConsumerOne.csproj", "{51C04722-9F3D-4C30-B093-50DD013CF95D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PactNet.ConsumerTwo", "PactNet.ConsumerTwo\PactNet.ConsumerTwo.csproj", "{B7A1943B-3595-4E9D-8B0A-C3316947E6A5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PactNet.Provider.UnitTest", "PactNet.Provider.UnitTest\PactNet.Provider.UnitTest.csproj", "{30CEB01B-1EA8-462D-80E0-71E171F5F350}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PactNet.ConsumerOne.UnitTest", "PactNet.ConsumerOne.UnitTest\PactNet.ConsumerOne.UnitTest.csproj", "{4D11840F-1A84-42E4-852C-7A0931A8E36D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsumerOne", "ConsumerOne", "{CB5C9044-D4AB-4F64-B9C9-6AED49C5422A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Provider", "Provider", "{0F34E6F7-8371-46C7-8D03-E40D77D0C874}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,10 +26,6 @@ Global
 		{51C04722-9F3D-4C30-B093-50DD013CF95D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51C04722-9F3D-4C30-B093-50DD013CF95D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51C04722-9F3D-4C30-B093-50DD013CF95D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B7A1943B-3595-4E9D-8B0A-C3316947E6A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7A1943B-3595-4E9D-8B0A-C3316947E6A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7A1943B-3595-4E9D-8B0A-C3316947E6A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7A1943B-3595-4E9D-8B0A-C3316947E6A5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{30CEB01B-1EA8-462D-80E0-71E171F5F350}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{30CEB01B-1EA8-462D-80E0-71E171F5F350}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30CEB01B-1EA8-462D-80E0-71E171F5F350}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -36,5 +34,11 @@ Global
 		{4D11840F-1A84-42E4-852C-7A0931A8E36D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D11840F-1A84-42E4-852C-7A0931A8E36D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D11840F-1A84-42E4-852C-7A0931A8E36D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{51C04722-9F3D-4C30-B093-50DD013CF95D} = {CB5C9044-D4AB-4F64-B9C9-6AED49C5422A}
+		{4D11840F-1A84-42E4-852C-7A0931A8E36D} = {CB5C9044-D4AB-4F64-B9C9-6AED49C5422A}
+		{FC9F5E24-4C45-43FA-A9FE-7A14950E23C5} = {0F34E6F7-8371-46C7-8D03-E40D77D0C874}
+		{30CEB01B-1EA8-462D-80E0-71E171F5F350} = {0F34E6F7-8371-46C7-8D03-E40D77D0C874}
 	EndGlobalSection
 EndGlobal

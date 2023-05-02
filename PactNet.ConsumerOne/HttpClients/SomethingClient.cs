@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace PactNet.ConsumerOne.HttpClients
 {
-    public interface IStudentClient
+    public interface ISomethingClient
     {
         Task<StudentDto> GetStudentById(int studentId);
     }
@@ -34,18 +34,18 @@ namespace PactNet.ConsumerOne.HttpClients
     //     }
     // }
     
-    public class StudentClient: IStudentClient
+    public class SomethingClient
     {
         private readonly HttpClient client;
 
-        public StudentClient(Uri baseUri = null)
+        public SomethingClient(Uri baseUri = null)
         {
             this.client = new HttpClient { BaseAddress = baseUri ?? new Uri("https://localhost:5001/") };
         }
 
-        public async Task<StudentDto> GetStudentById(int id)
+        public async Task<Something> GetSomethingById(string id)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, "/students/" + id);
+            var request = new HttpRequestMessage(HttpMethod.Get, $"/somethings/{id}");
             request.Headers.Add("Accept", "application/json");
 
             var response = await this.client.SendAsync(request);
@@ -61,7 +61,7 @@ namespace PactNet.ConsumerOne.HttpClients
             if (status == HttpStatusCode.OK)
             {
                 return !string.IsNullOrEmpty(content)
-                    ? JsonConvert.DeserializeObject<StudentDto>(content)
+                    ? JsonConvert.DeserializeObject<Something>(content)
                     : null;
             }
 

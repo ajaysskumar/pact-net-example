@@ -1,8 +1,13 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8cacd9e8_002D63e9_002D4b41_002D81f5_002D5b8bf949d28c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=366a08c5_002Df4ca_002D47ef_002D9737_002D1ff6e6a71e84/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="EnsureSomethingApiHonoursPactWithConsumer" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::30CEB01B-1EA8-462D-80E0-71E171F5F350::net6.0::PactNet.Provider.UnitTest.StudentControllerTest.ShouldReturn200WhenStudentIdExists&lt;/TestId&gt;
-    &lt;TestId&gt;NUnit3x::30CEB01B-1EA8-462D-80E0-71E171F5F350::net6.0::PactNet.Provider.UnitTest.StudentControllerTest.ShouldReturn400WhenStudentIdDoesNotExists&lt;/TestId&gt;
-    &lt;TestId&gt;NUnit3x::4D11840F-1A84-42E4-852C-7A0931A8E36D::net6.0::PactNet.ConsumerOne.UnitTest.Tests.ShouldReturnReportCardForStudent&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::30CEB01B-1EA8-462D-80E0-71E171F5F350::net6.0::PactNet.Provider.UnitTest.StudentControllerTest.EnsureSomethingApiHonoursPactWithConsumer&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::C303E1A0-867B-4C4B-B645-251CEFA03515::net6.0::ReadMe.Provider.Tests.SomethingApiTests.EnsureStudentApiHonoursPactWithConsumer&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::C303E1A0-867B-4C4B-B645-251CEFA03515::net6.0::ReadMe.Provider.Tests.SomethingApiTests.EnsureSomethingApiHonoursPactWithConsumer&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::4D11840F-1A84-42E4-852C-7A0931A8E36D::net6.0::PactNet.ConsumerOne.UnitTest.ReportCardControllerTest.GetSomething_WhenTheTesterExists_ReturnsTheStudent&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::4D11840F-1A84-42E4-852C-7A0931A8E36D::net6.0::PactNet.ConsumerOne.UnitTest.ReportCardControllerTest.GetStudent_WhenTheTesterStudentExists_ReturnsTheStudent&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::C303E1A0-867B-4C4B-B645-251CEFA03515::net6.0::ReadMe.Provider.Tests.SomethingApiTests.EnsureConsumerOneSomethingApiHonoursPactWithConsumer&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::30CEB01B-1EA8-462D-80E0-71E171F5F350::net6.0::PactNet.Provider.UnitTest.StudentControllerTest.Ensure_StudentApi_Honours_Pact_With_ConsumerOne&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::C303E1A0-867B-4C4B-B645-251CEFA03515::net6.0::ReadMe.Provider.Tests.SomethingApiTests.Ensure_SomethingApi_Honours_Pact_With_ConsumerOne&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

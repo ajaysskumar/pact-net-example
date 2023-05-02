@@ -1,32 +1,56 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Moq;
-using PactNet.Provider.Controllers;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using PactNet.Infrastructure.Outputters;
+using PactNet.Verifier;
+using Xunit;
+using Xunit.Abstractions;
 
-namespace PactNet.Provider.UnitTest;
-
-public class StudentControllerTest
+namespace PactNet.Provider.UnitTest
 {
-    [Test]
-    public void ShouldReturn200WhenStudentIdExists()
+    public class StudentControllerTest : IClassFixture<StudentApiFixture>
     {
-        var mockLogger = new Mock<ILogger<StudentController>>();
-        var controller = new StudentController(mockLogger.Object);
+        private readonly StudentApiFixture fixture;
+        private readonly ITestOutputHelper output;
 
-        var objectResult = (ObjectResult) controller.GetById(1);
-        var student = (Student)objectResult.Value!;
-        Assert.That(objectResult.StatusCode, Is.EqualTo(200));
-        Assert.That(student, Is.Not.Null);
-        Assert.That(student.Id, Is.EqualTo(1));
-    }
+        public StudentControllerTest(StudentApiFixture fixture, ITestOutputHelper output)
+        {
+            this.fixture = fixture;
+            this.output = output;
+        }
     
-    [Test]
-    public void ShouldReturn400WhenStudentIdDoesNotExists()
-    {
-        var mockLogger = new Mock<ILogger<StudentController>>();
-        var controller = new StudentController(mockLogger.Object);
+        [Fact]
+        public void Ensure_StudentApi_Honours_Pact_With_ConsumerOne()
+        {
+            // Arrange
+            var config = new PactVerifierConfig
+            {
+                Outputters = new List<IOutput>
+                {
+                    // NOTE: PactNet defaults to a ConsoleOutput, however
+                    // xUnit 2 does not capture the console output, so this
+                    // sample creates a custom xUnit outputter. You will
+                    // have to do the same in xUnit projects.
+                    new XunitOutput(output),
+                },
+                LogLevel = PactLogLevel.Information
+            };
 
-        var objectResult = (ObjectResult) controller.GetById(100);
-        Assert.That(objectResult.StatusCode, Is.EqualTo(404));
+            string pactPath = Path.Combine("..",
+                "..",
+                "..",
+                "..",
+                "pacts",
+                "ConsumerOne-Student API.json");
+
+            // Act / Assert
+            IPactVerifier pactVerifier = new PactVerifier(config);
+            pactVerifier
+                .ServiceProvider("Student API", fixture.ServerUri)
+                .WithFileSource(new FileInfo(pactPath))
+                .WithProviderStateUrl(new Uri(fixture.ServerUri, "/provider-states"))
+                .Verify();
+        }
     }
 }
+
