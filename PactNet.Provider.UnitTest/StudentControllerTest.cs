@@ -10,13 +10,13 @@ namespace PactNet.Provider.UnitTest
 {
     public class StudentControllerTest : IClassFixture<StudentApiFixture>
     {
-        private readonly StudentApiFixture fixture;
-        private readonly ITestOutputHelper output;
+        private readonly StudentApiFixture _fixture;
+        private readonly ITestOutputHelper _output;
 
         public StudentControllerTest(StudentApiFixture fixture, ITestOutputHelper output)
         {
-            this.fixture = fixture;
-            this.output = output;
+            _fixture = fixture;
+            _output = output;
         }
     
         [Fact]
@@ -31,7 +31,7 @@ namespace PactNet.Provider.UnitTest
                     // xUnit 2 does not capture the console output, so this
                     // sample creates a custom xUnit outputter. You will
                     // have to do the same in xUnit projects.
-                    new XunitOutput(output),
+                    new XunitOutput(_output),
                 },
                 LogLevel = PactLogLevel.Information
             };
@@ -43,12 +43,12 @@ namespace PactNet.Provider.UnitTest
                 "pacts",
                 "ConsumerOne-Student API.json");
 
-            // Act / Assert
+            // Act // Assert
             IPactVerifier pactVerifier = new PactVerifier(config);
             pactVerifier
-                .ServiceProvider("Student API", fixture.ServerUri)
+                .ServiceProvider("Student API", _fixture.ServerUri)
                 .WithFileSource(new FileInfo(pactPath))
-                .WithProviderStateUrl(new Uri(fixture.ServerUri, "/provider-states"))
+                .WithProviderStateUrl(new Uri(_fixture.ServerUri, "/provider-states"))
                 .Verify();
         }
     }

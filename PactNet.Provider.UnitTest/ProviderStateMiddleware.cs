@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -15,15 +14,15 @@ namespace PactNet.Provider.UnitTest
 
     public class ProviderStateMiddleware
     {
-        private readonly IDictionary<string, Action> providerStates;
-        private readonly RequestDelegate next;
+        private readonly IDictionary<string, Action> _providerStates;
+        private readonly RequestDelegate _next;
         private readonly IStudentRepo _studentRepo;
 
         public ProviderStateMiddleware(RequestDelegate next, IStudentRepo studentRepo)
         {
-            this.next = next;
+            _next = next;
             _studentRepo = studentRepo;
-            providerStates = new Dictionary<string, Action>
+            _providerStates = new Dictionary<string, Action>
             {
                 {
                     "There is student with id 1",
@@ -34,7 +33,7 @@ namespace PactNet.Provider.UnitTest
 
         private void AddStudentIfItDoesntExist()
         {
-            _studentRepo.AddStudent(new Student()
+            _studentRepo.AddStudent(new Student
             {
                 Id = 1,
                 FirstName = "Raju",
@@ -48,7 +47,7 @@ namespace PactNet.Provider.UnitTest
             if (!context.Request.Path
                     .Value?.StartsWith("/provider-states") ?? false)
             {
-                await next.Invoke(context);
+                await _next.Invoke(context);
                 return;
             }
 
@@ -68,7 +67,7 @@ namespace PactNet.Provider.UnitTest
                 //A null or empty provider state key must be handled
                 if (!string.IsNullOrEmpty(providerState?.State))
                 {
-                    providerStates[providerState.State].Invoke();
+                    _providerStates[providerState.State].Invoke();
                 }
 
                 await context.Response.WriteAsync(string.Empty);

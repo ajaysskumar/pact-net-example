@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using PactNet.ConsumerOne.Models;
 
 namespace PactNet.ConsumerOne.HttpClients
 {
@@ -14,41 +12,22 @@ namespace PactNet.ConsumerOne.HttpClients
     {
         Task<StudentDto> GetStudentById(int studentId);
     }
-
-    // public class StudentClient : IStudentClient
-    // {
-    //     private readonly HttpClient _httpClient;
-    //     public StudentClient(Uri uri = null)
-    //     {
-    //         _httpClient = new HttpClient()
-    //         {
-    //             BaseAddress = uri ?? new Uri("https://localhost:5001")
-    //         };
-    //     }
-    //
-    //     public async Task<StudentDto> GetStudentById(int studentId)
-    //     {
-    //         _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-    //         var studentResponse = await _httpClient.GetAsync($"/Student/{studentId}");
-    //         return studentResponse.IsSuccessStatusCode ? JsonConvert.DeserializeObject<StudentDto>(await studentResponse.Content.ReadAsStringAsync()) : null;
-    //     }
-    // }
     
     public class StudentClient: IStudentClient
     {
-        private readonly HttpClient client;
+        private readonly HttpClient _client;
 
         public StudentClient(Uri baseUri = null)
         {
-            this.client = new HttpClient { BaseAddress = baseUri ?? new Uri("https://localhost:5001/") };
+            this._client = new HttpClient { BaseAddress = baseUri ?? new Uri("https://localhost:5001/") };
         }
 
-        public async Task<StudentDto> GetStudentById(int id)
+        public async Task<StudentDto> GetStudentById(int studentId)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, "/students/" + id);
+            var request = new HttpRequestMessage(HttpMethod.Get, "/students/" + studentId);
             request.Headers.Add("Accept", "application/json");
 
-            var response = await this.client.SendAsync(request);
+            var response = await this._client.SendAsync(request);
 
             var content = await response.Content.ReadAsStringAsync();
             var status = response.StatusCode;
@@ -73,7 +52,7 @@ namespace PactNet.ConsumerOne.HttpClients
             var request = new HttpRequestMessage(HttpMethod.Get, $"/students");
             request.Headers.Add("Accept", "application/json");
 
-            var response = await this.client.SendAsync(request);
+            var response = await this._client.SendAsync(request);
 
             var content = await response.Content.ReadAsStringAsync();
             var status = response.StatusCode;

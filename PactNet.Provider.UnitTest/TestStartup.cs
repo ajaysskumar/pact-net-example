@@ -7,22 +7,22 @@ namespace PactNet.Provider.UnitTest;
 
 public class TestStartup
 {
-    private readonly Startup inner;
+    private readonly Startup _inner;
 
     public TestStartup(IConfiguration configuration)
     {
-        inner = new Startup(configuration);
+        _inner = new Startup(configuration);
     }
 
     public void ConfigureServices(IServiceCollection services)
     {
-        inner.ConfigureServices(services);
+        _inner.ConfigureServices(services);
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         app.UseMiddleware<ProviderStateMiddleware>();
 
-        inner.Configure(app, env);
+        _inner.Configure(app, env);
     }
 }

@@ -5,7 +5,7 @@ namespace PactNet.Provider.UnitTest;
 
 public class XunitOutput : IOutput
 {
-    private readonly ITestOutputHelper output;
+    private readonly ITestOutputHelper _output;
 
     /// <summary>
     /// Initialises a new instance of the <see cref="XunitOutput"/> class.
@@ -13,12 +13,12 @@ public class XunitOutput : IOutput
     /// <param name="output">xUnit test output helper</param>
     public XunitOutput(ITestOutputHelper output)
     {
-        this.output = output;
+        _output = output;
     }
 
     /// <summary>
     /// Write a line to the output
     /// </summary>
     /// <param name="line">Line to write</param>
-    public void WriteLine(string line) => this.output.WriteLine(line);
+    public void WriteLine(string line) => _output.WriteLine(line);
 }

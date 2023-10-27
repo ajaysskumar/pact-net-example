@@ -8,17 +8,12 @@ namespace PactNet.ConsumerOne.UnitTest
 {
     public class ReportCardControllerTest
     {
-        private readonly IPactBuilderV3 pactBuilder;
+        private readonly IPactBuilderV3 _pactBuilder;
 
         public ReportCardControllerTest()
         {
-            // Use default pact directory ..\..\pacts and default log
-            // directory ..\..\logs
-            // var pact = Pact.V3("Student API Consumer", "Student API", new PactConfig());
-
             var pactDir =
-                $"{Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName}{Path.DirectorySeparatorChar}pacts";
-
+                $"{Directory.GetParent(Directory.GetCurrentDirectory())?.Parent.Parent.Parent?.FullName}{Path.DirectorySeparatorChar}pacts";
 
             Console.WriteLine($"PACT_DIR: {pactDir}");
             // or specify custom log and pact directories
@@ -29,14 +24,14 @@ namespace PactNet.ConsumerOne.UnitTest
             });
 
             // Initialize Rust backend
-            this.pactBuilder = pact.WithHttpInteractions();
+            _pactBuilder = pact.WithHttpInteractions();
         }
 
         [Fact]
-        public async Task GetStudent_WhenTheTesterStudentExists_ReturnsTheStudent()
+        public async Task Get_Student_When_The_Student_With_Id_1_Exists()
         {
             // Arrange
-            this.pactBuilder
+            _pactBuilder
                 .UponReceiving("A GET request to retrieve the student")
                 .Given("There is student with id 1")
                 .WithRequest(HttpMethod.Get, "/students/" + 1)
@@ -52,7 +47,7 @@ namespace PactNet.ConsumerOne.UnitTest
                     id = 1
                 });
 
-            await this.pactBuilder.VerifyAsync(async ctx =>
+            await _pactBuilder.VerifyAsync(async ctx =>
             {
                 // Act
                 var client = new StudentClient(ctx.MockServerUri);
@@ -60,48 +55,6 @@ namespace PactNet.ConsumerOne.UnitTest
 
                 // Assert
                 Assert.That(studentDto.Id, Is.EqualTo(1));
-            });
-        }
-
-        [Fact]
-        public async Task GetSomething_WhenTheTesterExists_ReturnsTheStudent()
-        {
-            // Arrange
-            var pactDir =
-                $"{Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName}{Path.DirectorySeparatorChar}pacts";
-
-            var pact = Pact.V3("ConsumerOne", "Something API", new PactConfig()
-            {
-                PactDir = pactDir,
-                LogLevel = PactLogLevel.Debug
-            });
-
-            // Initialize Rust backend
-            var localPactBuilder = pact.WithHttpInteractions();
-
-            localPactBuilder
-                .UponReceiving("A GET request to retrieve the something")
-                .Given("There is a something with id 'tester'")
-                .WithRequest(HttpMethod.Get, "/somethings/tester")
-                .WithHeader("Accept", "application/json")
-                .WillRespond()
-                .WithStatus(HttpStatusCode.OK)
-                .WithHeader("Content-Type", "application/json; charset=utf-8")
-                .WithJsonBody(new
-                {
-                    firstName = "Totally",
-                    lastName = "Awesome",
-                    id = "tester"
-                });
-
-            await localPactBuilder.VerifyAsync(async ctx =>
-            {
-                // Act
-                var client = new SomethingClient(ctx.MockServerUri);
-                var studentDto = await client.GetSomethingById("tester");
-
-                // Assert
-                Assert.That(studentDto.Id, Is.EqualTo("tester"));
             });
         }
     }

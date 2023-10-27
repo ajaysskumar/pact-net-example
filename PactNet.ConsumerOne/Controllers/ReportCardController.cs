@@ -4,8 +4,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using PactNet.ConsumerOne.HttpClients;
+using PactNet.ConsumerOne.Models;
 
 namespace PactNet.ConsumerOne.Controllers
 {
@@ -13,13 +13,10 @@ namespace PactNet.ConsumerOne.Controllers
     [Route("[controller]")]
     public class ReportCardController : ControllerBase
     {
-
-        private readonly ILogger<ReportCardController> _logger;
         private readonly IStudentClient _studentClient;
 
-        public ReportCardController(ILogger<ReportCardController> logger, IStudentClient studentClient)
+        public ReportCardController(IStudentClient studentClient)
         {
-            _logger = logger;
             _studentClient = studentClient;
         }
 

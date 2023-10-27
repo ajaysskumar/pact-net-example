@@ -1,14 +1,5 @@
-using System;
-
-namespace PactNet.ConsumerOne
+namespace PactNet.ConsumerOne.Models
 {
-    public class ReportCard
-    {
-        public int Id { get; set; }
-        public StudentDto Student { get; set; }
-        public double Score { get; set; }
-    }
-
     public class StudentDto
     {
         public int Id { get; set; }
