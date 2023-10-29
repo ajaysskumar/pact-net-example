@@ -1,28 +1,36 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PactNet.Provider.Repository;
 
 namespace PactNet.Provider.UnitTest;
 
 public class TestStartup
 {
-    private readonly Startup _inner;
-
     public TestStartup(IConfiguration configuration)
     {
-        _inner = new Startup(configuration);
     }
 
     public void ConfigureServices(IServiceCollection services)
     {
-        _inner.ConfigureServices(services);
+        services.AddSingleton<IStudentRepo, StudentRepo>();
+        services.AddRouting(options => options.LowercaseUrls = true);
+
+        services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
+                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            });
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         app.UseMiddleware<ProviderStateMiddleware>();
-
-        _inner.Configure(app, env);
+        app.UseRouting();
+        app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }
 }

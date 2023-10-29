@@ -9,5 +9,6 @@
     &lt;TestId&gt;xUnit::C303E1A0-867B-4C4B-B645-251CEFA03515::net6.0::ReadMe.Provider.Tests.SomethingApiTests.EnsureConsumerOneSomethingApiHonoursPactWithConsumer&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::30CEB01B-1EA8-462D-80E0-71E171F5F350::net6.0::PactNet.Provider.UnitTest.StudentControllerTest.Ensure_StudentApi_Honours_Pact_With_ConsumerOne&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::C303E1A0-867B-4C4B-B645-251CEFA03515::net6.0::ReadMe.Provider.Tests.SomethingApiTests.Ensure_SomethingApi_Honours_Pact_With_ConsumerOne&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::4D11840F-1A84-42E4-852C-7A0931A8E36D::net6.0::PactNet.ConsumerOne.UnitTest.ReportCardControllerTest&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
