@@ -27,6 +27,10 @@ namespace PactNet.Provider.UnitTest
                 {
                     "There is student with id 1",
                     AddStudentIfItDoesntExist
+                },
+                {
+                    "There is student is at least one valid student present",
+                    AddAnotherStudent
                 }
             };
         }
@@ -39,6 +43,17 @@ namespace PactNet.Provider.UnitTest
                 FirstName = "Raju",
                 LastName = "Rastogi",
                 Address = "Delhi"
+            });
+        }
+        
+        private void AddAnotherStudent()
+        {
+            _studentRepo.AddStudent(new Student
+            {
+                Id = 2,
+                FirstName = "John",
+                LastName = "Doe",
+                Address = "Agra"
             });
         }
 

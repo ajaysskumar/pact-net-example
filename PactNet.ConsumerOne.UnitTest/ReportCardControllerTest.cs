@@ -57,5 +57,25 @@ namespace PactNet.ConsumerOne.UnitTest
                 Assert.That(studentDto.Id, Is.EqualTo(1));
             });
         }
+        
+        [Fact]
+        public async Task Get_Student_When_The_StudentId_Is_Invalid()
+        {
+            // Arrange
+            _pactBuilder
+                .UponReceiving("A GET request to retrieve the student with invalid student id")
+                .Given("There is student is at least one valid student present")
+                .WithRequest(HttpMethod.Get, "/students/" + -999)
+                .WithHeader("Accept", "application/json")
+                .WillRespond()
+                .WithStatus(HttpStatusCode.NoContent);
+ 
+            await _pactBuilder.VerifyAsync(async ctx =>
+            {
+                // Act
+                var client = new StudentClient(ctx.MockServerUri);
+                Assert.ThrowsAsync<Exception>(async () => await client.GetStudentById(-999));
+            });
+        }
     }
 }
