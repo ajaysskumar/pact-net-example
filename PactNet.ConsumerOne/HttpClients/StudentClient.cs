@@ -43,6 +43,11 @@ namespace PactNet.ConsumerOne.HttpClients
                     ? JsonConvert.DeserializeObject<StudentDto>(content)
                     : null;
             }
+            
+            if (status == HttpStatusCode.NotFound)
+            {
+                return null;
+            }
 
             throw new Exception(reasonPhrase);
         }

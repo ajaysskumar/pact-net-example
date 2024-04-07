@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,6 +17,19 @@ public class StudentRepo : IStudentRepo
     public StudentRepo()
     {
         _students = new List<Student>();
+        // Add one time dummy student list
+
+        for (int i = 0; i < 10; i++)
+        {
+            _students.Add(new Student()
+            {
+                Id = 100 + i,
+                Address = $"{i} Block, 12 {1} Road, Delhi, India",
+                Gender = DateTime.Now.Microsecond % 2 == 0? "Male": "Female",
+                FirstName = $"FName {i}",
+                LastName = "LName"
+            });
+        }
     }
     
     public Student GetStudentById(int id)

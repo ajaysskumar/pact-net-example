@@ -1,3 +1,4 @@
+using MessageBroker;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +22,7 @@ namespace PactNet.ConsumerOne
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IStudentClient, StudentClient>();
+            services.AddSingleton<IEventPublisher, EventPublisher>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
