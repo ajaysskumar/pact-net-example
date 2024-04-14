@@ -1,0 +1,70 @@
+{
+  "consumer": {
+    "name": "Result"
+  },
+  "messages": [
+    {
+      "contents": {
+        "firstName": "FirstName",
+        "lastName": "LastName",
+        "standardId": 2,
+        "studentId": "2274a1f8-7d93-11ee-b962-0242ac120002"
+      },
+      "description": "a StudentCreatedEvent",
+      "matchingRules": {
+        "body": {
+          "$.firstName": {
+            "combine": "AND",
+            "matchers": [
+              {
+                "match": "regex",
+                "regex": "^[a-zA-Z]{3,25}$$"
+              }
+            ]
+          },
+          "$.lastName": {
+            "combine": "AND",
+            "matchers": [
+              {
+                "match": "regex",
+                "regex": "^[a-zA-Z]{3,25}$$"
+              }
+            ]
+          },
+          "$.standardId": {
+            "combine": "AND",
+            "matchers": [
+              {
+                "match": "integer"
+              }
+            ]
+          },
+          "$.studentId": {
+            "combine": "AND",
+            "matchers": [
+              {
+                "match": "regex",
+                "regex": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+              }
+            ]
+          }
+        }
+      },
+      "metadata": {
+        "contentType": "application/json"
+      }
+    }
+  ],
+  "metadata": {
+    "pactRust": {
+      "ffi": "0.4.0",
+      "models": "1.0.4"
+    },
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  },
+  "provider": {
+    "name": "Student"
+  }
+}

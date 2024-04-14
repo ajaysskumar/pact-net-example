@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using MessageBroker;
 using Microsoft.AspNetCore.Mvc;
 using PactNet.ConsumerOne.HttpClients;
 using PactNet.ConsumerOne.Models;
@@ -16,32 +15,30 @@ namespace PactNet.ConsumerOne.Controllers
     public class ReportCardController : ControllerBase
     {
         private readonly IStudentClient _studentClient;
-        private readonly IEventPublisher _eventPublisher;
 
-        public ReportCardController(IStudentClient studentClient, IEventPublisher eventPublisher)
+        public ReportCardController(IStudentClient studentClient)
         {
             _studentClient = studentClient;
-            _eventPublisher = eventPublisher;
         }
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(string id)
         {
             var student = await _studentClient.GetStudentById(id);
 
             var report = new ReportCard()
             {
-                Id = id,
+                Id = Random.Shared.Next(),
                 Student = student,
-                Score = id * 100
+                Score = 2 * 100
             };
 
             return Ok(report);
         }
         
         [HttpPost]
-        public async Task<IActionResult> Post(int id)
+        public async Task<IActionResult> Post(string id)
         {
             try
             {
@@ -52,11 +49,10 @@ namespace PactNet.ConsumerOne.Controllers
                 }
                 var reportCard = new ReportCard()
                 {
-                    Id = DateTime.Now.Year + id,
+                    Id = DateTime.Now.Year + Random.Shared.Next(),
                     Student = student,
                     Score = 9.5d
                 };
-                await _eventPublisher.PublishAsync(new ReportCardCreatedEvent(reportCard.Id, reportCard.IsPassed, reportCard.Year, reportCard.Student.Id), "result-created");
                 return Ok(reportCard);
             }
             catch (Exception e)

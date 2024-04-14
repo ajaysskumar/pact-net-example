@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using PactNet.ConsumerOne.HttpClients;
+using PactNet.Provider.Listeners;
 
 namespace PactNet.ConsumerOne
 {
@@ -23,6 +24,7 @@ namespace PactNet.ConsumerOne
         {
             services.AddSingleton<IStudentClient, StudentClient>();
             services.AddSingleton<IEventPublisher, EventPublisher>();
+            services.AddHostedService<StudentCreatedEventListener>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

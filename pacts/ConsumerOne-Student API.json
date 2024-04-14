@@ -1,0 +1,64 @@
+{
+  "consumer": {
+    "name": "ConsumerOne"
+  },
+  "interactions": [
+    {
+      "description": "A GET request to retrieve the student with invalid student id",
+      "providerStates": [
+        {
+          "name": "There is student is at least one valid student present"
+        }
+      ],
+      "request": {
+        "headers": {
+          "Accept": "application/json"
+        },
+        "method": "GET",
+        "path": "/students/some-invalid-id"
+      },
+      "response": {
+        "status": 204
+      }
+    },
+    {
+      "description": "A GET request to retrieve the student",
+      "providerStates": [
+        {
+          "name": "There is student with id 067a50c5-0b23-485e-b018-17c66b2422ff"
+        }
+      ],
+      "request": {
+        "headers": {
+          "Accept": "application/json"
+        },
+        "method": "GET",
+        "path": "/students/067a50c5-0b23-485e-b018-17c66b2422ff"
+      },
+      "response": {
+        "body": {
+          "address": "Delhi",
+          "firstName": "Raju",
+          "id": "067a50c5-0b23-485e-b018-17c66b2422ff",
+          "lastName": "Rastogi"
+        },
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "status": 200
+      }
+    }
+  ],
+  "metadata": {
+    "pactRust": {
+      "ffi": "0.4.0",
+      "models": "1.0.4"
+    },
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  },
+  "provider": {
+    "name": "Student API"
+  }
+}

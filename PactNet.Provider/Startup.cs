@@ -26,6 +26,7 @@ namespace PactNet.Provider
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IStudentRepo, StudentRepo>();
+            services.AddSingleton<IEventPublisher, EventPublisher>();
             services.AddHostedService<ResultCreatedEventListener>();
             services.AddRouting(options => options.LowercaseUrls = true);
 
@@ -55,8 +56,6 @@ namespace PactNet.Provider
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            // app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

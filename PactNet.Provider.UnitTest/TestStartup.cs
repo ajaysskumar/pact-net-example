@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using MessageBroker;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +18,7 @@ public class TestStartup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddSingleton<IStudentRepo, StudentRepo>();
+        services.AddSingleton<IEventPublisher, EventPublisher>();
         services.AddRouting(options => options.LowercaseUrls = true);
 
         services.AddControllers()

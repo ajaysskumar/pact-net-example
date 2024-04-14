@@ -6,8 +6,8 @@ namespace PactNet.Provider.Repository;
 
 public interface IStudentRepo
 {
-    Student GetStudentById(int id);
-    void AddStudent(Student student);
+    Student GetStudentById(string id);
+    Student AddStudent(Student student);
 }
 
 public class StudentRepo : IStudentRepo
@@ -23,7 +23,7 @@ public class StudentRepo : IStudentRepo
         {
             _students.Add(new Student()
             {
-                Id = 100 + i,
+                Id = Guid.NewGuid().ToString(),
                 Address = $"{i} Block, 12 {1} Road, Delhi, India",
                 Gender = DateTime.Now.Microsecond % 2 == 0? "Male": "Female",
                 FirstName = $"FName {i}",
@@ -32,13 +32,14 @@ public class StudentRepo : IStudentRepo
         }
     }
     
-    public Student GetStudentById(int id)
+    public Student GetStudentById(string id)
     {
         return _students.FirstOrDefault(x => x.Id == id);
     }
 
-    public void AddStudent(Student student)
+    public Student AddStudent(Student student)
     {
         _students.Add(student);
+        return student;
     }
 }

@@ -10,7 +10,7 @@ namespace PactNet.ConsumerOne.HttpClients
 {
     public interface IStudentClient
     {
-        Task<StudentDto> GetStudentById(int studentId);
+        Task<StudentDto> GetStudentById(string studentId);
     }
     
     public class StudentClient: IStudentClient
@@ -22,7 +22,7 @@ namespace PactNet.ConsumerOne.HttpClients
             this._client = new HttpClient { BaseAddress = baseUri ?? new Uri("https://localhost:5001/") };
         }
 
-        public async Task<StudentDto> GetStudentById(int studentId)
+        public async Task<StudentDto> GetStudentById(string studentId)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/students/" + studentId);
             request.Headers.Add("Accept", "application/json");

@@ -13,9 +13,5 @@
       <ProjectReference Include="..\MessageBroker\MessageBroker.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Listeners\" />
-    </ItemGroup>
-
 
 </Project>
