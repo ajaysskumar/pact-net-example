@@ -8,7 +8,7 @@ namespace MessageBroker;
 
 public class EventPublisher: IEventPublisher
 {
-    private IModel _channel;
+    private readonly IModel _channel;
     public EventPublisher()
     {
         var factory = new ConnectionFactory { HostName = "localhost"};
@@ -31,5 +31,13 @@ public class EventPublisher: IEventPublisher
             basicProperties: null,
             body: body);
         await Task.CompletedTask;
+    }
+}
+
+public class FakeEventPublisher: IEventPublisher
+{
+    public async Task PublishAsync<T>(T message, string queueName)
+    {
+        Console.WriteLine($"Event published on {queueName}");
     }
 }
