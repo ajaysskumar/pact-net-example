@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using MessageBroker;
+﻿using MessageBroker;
 using Microsoft.AspNetCore.Mvc;
+using PactNet.Provider.Models;
 using PactNet.Provider.Models.Events;
 using PactNet.Provider.Repository;
 
@@ -32,12 +31,12 @@ namespace PactNet.Provider.Controllers
             var createdStudent = _studentRepo.AddStudent(student);
             _eventPublisher.PublishAsync(new StudentCreatedEvent()
             {
-                StudentId = student.Id,
-                Address = student.Address,
-                Gender = student.Gender,
-                StandardId = student.Standard,
-                FirstName = student.FirstName,
-                LastName = student.LastName
+                StudentId = createdStudent.Id,
+                Address = createdStudent.Address,
+                Gender = createdStudent.Gender,
+                StandardId = createdStudent.Standard,
+                FirstName = createdStudent.FirstName,
+                LastName = createdStudent.LastName
             }, "student-created");
             return Ok();
         }

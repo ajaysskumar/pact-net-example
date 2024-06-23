@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using PactNet.Provider.Models;
 using PactNet.Provider.Repository;
 
 namespace PactNet.Provider.UnitTest

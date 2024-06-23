@@ -2,7 +2,6 @@ using System;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using MessageBroker;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using PactNet.Provider.Models.Events;

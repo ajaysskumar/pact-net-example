@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using PactNet.ConsumerOne.HttpClients;
-using PactNet.Provider.Listeners;
+using PactNet.ConsumerOne.Listeners;
 
 namespace PactNet.ConsumerOne
 {

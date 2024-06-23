@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PactNet.ConsumerOne.HttpClients;
 using PactNet.ConsumerOne.Models;
-using PactNet.ConsumerOne.Models.Events;
 
 namespace PactNet.ConsumerOne.Controllers
 {

@@ -1,4 +1,3 @@
-using System;
 using PactNet.Provider.Shared;
 
 namespace PactNet.Provider.Models.Events

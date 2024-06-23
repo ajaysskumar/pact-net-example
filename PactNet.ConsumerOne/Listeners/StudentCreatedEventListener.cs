@@ -2,14 +2,13 @@ using System;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using MessageBroker;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using PactNet.ConsumerOne.Models.Events;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-namespace PactNet.Provider.Listeners;
+namespace PactNet.ConsumerOne.Listeners;
 
 public class StudentCreatedEventListener: BackgroundService
 {

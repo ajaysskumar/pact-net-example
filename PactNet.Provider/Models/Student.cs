@@ -1,7 +1,6 @@
-using System;
 using PactNet.Provider.Shared;
 
-namespace PactNet.Provider
+namespace PactNet.Provider.Models
 {
     public class Student
     {
