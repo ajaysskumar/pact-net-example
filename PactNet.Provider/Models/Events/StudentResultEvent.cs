@@ -1,17 +1,9 @@
 namespace PactNet.Provider.Models.Events;
 
-public class ReportCardCreatedEvent
+public class ReportCardCreatedEvent(int id, bool status, int year, int studentId)
 {
-    public ReportCardCreatedEvent(int id, bool status, int year, int studentId)
-    {
-        Id = id;
-        Status = status;
-        Year = year;
-        StudentId = studentId;
-    }
-
-    public int Id { get; set; }
-    public bool Status { get; set; }
-    public int Year { get; set; }
-    public int StudentId { get; set; }
+    public int Id { get; set; } = id;
+    public bool Status { get; set; } = status;
+    public int Year { get; set; } = year;
+    public int StudentId { get; set; } = studentId;
 }

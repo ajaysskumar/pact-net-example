@@ -14,7 +14,7 @@ namespace PactNet.ConsumerOne.UnitTest
         public ReportCardControllerTest()
         {
             var pactDir =
-                $"{Directory.GetParent(Directory.GetCurrentDirectory())?.Parent.Parent.Parent?.FullName}{Path.DirectorySeparatorChar}pacts";
+                $"{Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.FullName}{Path.DirectorySeparatorChar}pacts";
 
             Console.WriteLine($"PACT_DIR: {pactDir}");
             // or specify custom log and pact directories
@@ -60,7 +60,7 @@ namespace PactNet.ConsumerOne.UnitTest
         }
         
         [Fact]
-        public async Task Get_Student_When_The_StudentId_Is_Invalid()
+        public void Get_Student_When_The_StudentId_Is_Invalid()
         {
             // Arrange
             _pactBuilder
@@ -71,7 +71,7 @@ namespace PactNet.ConsumerOne.UnitTest
                 .WillRespond()
                 .WithStatus(HttpStatusCode.NoContent);
  
-            await _pactBuilder.VerifyAsync(async ctx =>
+            _pactBuilder.Verify(async ctx =>
             {
                 // Act
                 var client = new StudentClient(ctx.MockServerUri);

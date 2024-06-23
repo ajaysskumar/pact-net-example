@@ -39,5 +39,6 @@ public class FakeEventPublisher: IEventPublisher
     public async Task PublishAsync<T>(T message, string queueName)
     {
         Console.WriteLine($"Event published on {queueName}");
+        await Task.CompletedTask;
     }
 }

@@ -13,7 +13,7 @@ namespace PactNet.Provider.Listeners;
 
 public class StudentCreatedEventListener: BackgroundService
 {
-    private IModel _channel;
+    private readonly IModel _channel;
     public StudentCreatedEventListener()
     {
         var factory = new ConnectionFactory { HostName = "localhost" };

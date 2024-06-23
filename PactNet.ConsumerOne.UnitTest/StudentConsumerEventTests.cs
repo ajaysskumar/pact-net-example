@@ -20,7 +20,7 @@ public class StudentConsumerEventTests
     {
         OutputHelper = output;
 
-        IPactV3 v3 = Pact.V3("Result", "Student", new PactConfig
+        IPactV3 v3 = Pact.V3("Result", "Student Event", new PactConfig
         {
             PactDir = "../../../../Pacts",
             DefaultJsonSettings = new JsonSerializerSettings

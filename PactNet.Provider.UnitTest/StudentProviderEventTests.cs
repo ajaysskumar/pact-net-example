@@ -14,7 +14,7 @@ public class StudentProviderEventTests : IDisposable
 {
     private readonly PactVerifier _pactVerifier;
     private const string UuidRegex = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
-    private static readonly FileInfo PactFile = new("../../../../Pacts/Result-Student.json");
+    private static readonly FileInfo PactFile = new("../../../../Pacts/Result-Student Event.json");
     
     private ITestOutputHelper OutputHelper { get; }
     
