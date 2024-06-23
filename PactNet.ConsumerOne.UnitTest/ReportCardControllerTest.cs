@@ -34,8 +34,8 @@ namespace PactNet.ConsumerOne.UnitTest
             // Arrange
             _pactBuilder
                 .UponReceiving("A GET request to retrieve the student")
-                .Given("There is student with id 067a50c5-0b23-485e-b018-17c66b2422ff")
-                .WithRequest(HttpMethod.Get, "/students/067a50c5-0b23-485e-b018-17c66b2422ff")
+                .Given($"There is student with id {ValidStudentId}")
+                .WithRequest(HttpMethod.Get, $"/students/{ValidStudentId}")
                 .WithHeader("Accept", "application/json")
                 .WillRespond()
                 .WithStatus(HttpStatusCode.OK)
@@ -71,7 +71,7 @@ namespace PactNet.ConsumerOne.UnitTest
                 .WillRespond()
                 .WithStatus(HttpStatusCode.NoContent);
  
-            _pactBuilder.Verify(async ctx =>
+            _pactBuilder.Verify(ctx =>
             {
                 // Act
                 var client = new StudentClient(ctx.MockServerUri);
