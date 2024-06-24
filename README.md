@@ -3,6 +3,7 @@ This repository illustrates the use of PACT framework for testing in .NET projec
 # Pre-requisites
   - Any .NET supported IDE (Visual Studio, VS Code, JetBrains Rider etc)
   - .NET SDK (8 and above). However, project can be run with .NET 6 as well with small tweaks
+  - RabbitMQ should be installed on localhost default port. This is optional in case one does not want to actually run the projects.
 
 # How to run
   - Clone the repo
