@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using PactNet.Infrastructure.Outputters;
 using PactNet.Provider.Models.Events;
 using PactNet.Provider.Shared;
 using PactNet.Verifier;
@@ -13,11 +15,8 @@ namespace PactNet.Provider.UnitTest;
 public class StudentProviderEventTests : IDisposable
 {
     private readonly PactVerifier _pactVerifier;
-    private const string UuidRegex = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
-    private static readonly FileInfo PactFile = new("../../../../Pacts/Result-Student Event.json");
     
     private ITestOutputHelper OutputHelper { get; }
-    
     
     public StudentProviderEventTests(ITestOutputHelper output)
     {
@@ -28,10 +27,10 @@ public class StudentProviderEventTests : IDisposable
             // NOTE: We default to using a ConsoleOutput,
             // however xUnit 2 does not capture the console output,
             // so a custom outputter is required.
-            // Outputters = new List<IOutput>
-            // {
-            //     new CustomXunitOutput(OutputHelper)
-            // },
+            Outputters = new List<IOutput>
+            {
+                new XunitOutput(OutputHelper)
+            },
 
             LogLevel = PactNet.PactLogLevel.Trace
         };
@@ -50,6 +49,7 @@ public class StudentProviderEventTests : IDisposable
     [Fact]
     public void EnsureProviderHonoursPactWithConsumer()
     {
+        FileInfo pactFile = new("../../../../Pacts/Result-Student Event.json");
         var defaultSettings = new JsonSerializerSettings
         {
             ContractResolver = new CamelCasePropertyNamesContractResolver(),
@@ -77,6 +77,6 @@ public class StudentProviderEventTests : IDisposable
                         });
                 });
             })
-            .WithFileSource(PactFile).Verify();
+            .WithFileSource(pactFile).Verify();
     }
 }
