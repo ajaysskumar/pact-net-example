@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PactNet.ConsumerOne.HttpClients;
@@ -22,18 +19,43 @@ namespace PactNet.ConsumerOne.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(string id)
         {
             var student = await _studentClient.GetStudentById(id);
 
             var report = new ReportCard()
             {
-                Id = id,
+                Id = Random.Shared.Next(),
                 Student = student,
-                Score = id * 100
+                Score = 2 * 100
             };
 
             return Ok(report);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> Post(string id)
+        {
+            try
+            {
+                var student = await _studentClient.GetStudentById(id);
+                if (student == null)
+                {
+                    return NotFound();
+                }
+                var reportCard = new ReportCard()
+                {
+                    Id = DateTime.Now.Year + Random.Shared.Next(),
+                    Student = student,
+                    Score = 9.5d
+                };
+                return Ok(reportCard);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500);
+            }
         }
     }
 }

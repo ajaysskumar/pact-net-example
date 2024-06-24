@@ -9,7 +9,8 @@ namespace PactNet.ConsumerOne.UnitTest
     public class ReportCardControllerTest
     {
         private readonly IPactBuilderV3 _pactBuilder;
-
+        private const string ValidStudentId = "067a50c5-0b23-485e-b018-17c66b2422ff";
+        
         public ReportCardControllerTest()
         {
             var pactDir =
@@ -33,8 +34,8 @@ namespace PactNet.ConsumerOne.UnitTest
             // Arrange
             _pactBuilder
                 .UponReceiving("A GET request to retrieve the student")
-                .Given("There is student with id 1")
-                .WithRequest(HttpMethod.Get, "/students/" + 1)
+                .Given($"There is student with id {ValidStudentId}")
+                .WithRequest(HttpMethod.Get, $"/students/{ValidStudentId}")
                 .WithHeader("Accept", "application/json")
                 .WillRespond()
                 .WithStatus(HttpStatusCode.OK)
@@ -44,17 +45,17 @@ namespace PactNet.ConsumerOne.UnitTest
                     firstName = "Raju",
                     lastName = "Rastogi",
                     address = "Delhi",
-                    id = 1
+                    id = ValidStudentId
                 });
 
             await _pactBuilder.VerifyAsync(async ctx =>
             {
                 // Act
                 var client = new StudentClient(ctx.MockServerUri);
-                var studentDto = await client.GetStudentById(1);
+                var studentDto = await client.GetStudentById(ValidStudentId);
 
                 // Assert
-                Assert.That(studentDto.Id, Is.EqualTo(1));
+                Assert.That(studentDto.Id, Is.EqualTo(ValidStudentId));
             });
         }
         
@@ -65,7 +66,7 @@ namespace PactNet.ConsumerOne.UnitTest
             _pactBuilder
                 .UponReceiving("A GET request to retrieve the student with invalid student id")
                 .Given("There is student is at least one valid student present")
-                .WithRequest(HttpMethod.Get, "/students/" + -999)
+                .WithRequest(HttpMethod.Get, "/students/some-invalid-id")
                 .WithHeader("Accept", "application/json")
                 .WillRespond()
                 .WithStatus(HttpStatusCode.NoContent);
@@ -74,7 +75,7 @@ namespace PactNet.ConsumerOne.UnitTest
             {
                 // Act
                 var client = new StudentClient(ctx.MockServerUri);
-                Assert.ThrowsAsync<Exception>(async () => await client.GetStudentById(-999));
+                Assert.ThrowsAsync<Exception>(async () => await client.GetStudentById("some-invalid-id"));
             });
         }
     }

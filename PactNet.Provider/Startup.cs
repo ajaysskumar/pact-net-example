@@ -1,11 +1,14 @@
+using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using MessageBroker;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using PactNet.Provider.Listeners;
 using PactNet.Provider.Repository;
 
 namespace PactNet.Provider
@@ -23,6 +26,8 @@ namespace PactNet.Provider
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IStudentRepo, StudentRepo>();
+            services.AddSingleton<IEventPublisher, EventPublisher>();
+            services.AddHostedService<ResultCreatedEventListener>();
             services.AddRouting(options => options.LowercaseUrls = true);
 
             services.AddControllers()
@@ -40,6 +45,7 @@ namespace PactNet.Provider
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            StartListeningToEvents(app.ApplicationServices);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -51,9 +57,15 @@ namespace PactNet.Provider
 
             app.UseRouting();
 
-            // app.UseAuthorization();
-
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        }
+        
+        private static void StartListeningToEvents(IServiceProvider serviceProvider)
+        {
+            foreach (var listener in serviceProvider.GetServices<IListener>())
+            {
+                listener.StartListening();
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using PactNet.Provider.Models;
 using PactNet.Provider.Repository;
 
 namespace PactNet.Provider.UnitTest
@@ -25,7 +26,7 @@ namespace PactNet.Provider.UnitTest
             _providerStates = new Dictionary<string, Action>
             {
                 {
-                    "There is student with id 1",
+                    "There is student with id 067a50c5-0b23-485e-b018-17c66b2422ff",
                     AddStudentIfItDoesntExist
                 },
                 {
@@ -39,7 +40,7 @@ namespace PactNet.Provider.UnitTest
         {
             _studentRepo.AddStudent(new Student
             {
-                Id = 1,
+                Id = "067a50c5-0b23-485e-b018-17c66b2422ff",
                 FirstName = "Raju",
                 LastName = "Rastogi",
                 Address = "Delhi"
@@ -50,7 +51,7 @@ namespace PactNet.Provider.UnitTest
         {
             _studentRepo.AddStudent(new Student
             {
-                Id = 2,
+                Id = "477a74aa-986f-4fc9-b48a-8aea50d19258",
                 FirstName = "John",
                 LastName = "Doe",
                 Address = "Agra"

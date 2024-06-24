@@ -1,3 +1,4 @@
+using MessageBroker;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -5,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using PactNet.ConsumerOne.HttpClients;
+using PactNet.ConsumerOne.Listeners;
 
 namespace PactNet.ConsumerOne
 {
@@ -21,6 +23,8 @@ namespace PactNet.ConsumerOne
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IStudentClient, StudentClient>();
+            services.AddSingleton<IEventPublisher, EventPublisher>();
+            services.AddHostedService<StudentCreatedEventListener>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
