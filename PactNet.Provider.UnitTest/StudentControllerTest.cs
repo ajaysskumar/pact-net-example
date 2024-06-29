@@ -51,6 +51,36 @@ namespace PactNet.Provider.UnitTest
                 .WithProviderStateUrl(new Uri(_fixture.ServerUri, "/provider-states"))
                 .Verify();
         }
+        
+        [Fact]
+        public void Ensure_StudentApi_Honours_Pact_With_ConsumerOne_Using_PactFlow()
+        {
+            // Arrange
+            var config = new PactVerifierConfig
+            {
+                Outputters = new List<IOutput>
+                {
+                    // NOTE: PactNet defaults to a ConsoleOutput, however
+                    // xUnit 2 does not capture the console output, so this
+                    // sample creates a custom xUnit outputter. You will
+                    // have to do the same in xUnit projects.
+                    new XunitOutput(_output),
+                },
+                LogLevel = PactLogLevel.Information
+            };
+
+            // Act // Assert
+            IPactVerifier pactVerifier = new PactVerifier(config);
+            pactVerifier
+                .ServiceProvider("Student API", _fixture.ServerUri)
+                .WithPactBrokerSource(new Uri("PACT_FLOW_BASE_URI"), configure =>
+                {
+                    configure.TokenAuthentication("PACT_FLOW_TOKEN");
+                    configure.PublishResults(true, "1.0.0"); // Any version
+                })
+                .WithProviderStateUrl(new Uri(_fixture.ServerUri, "/provider-states"))
+                .Verify();
+        }
     }
 }
 
