@@ -13,6 +13,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      PACT_FLOW_BASE_URL: ${{ vars.PACT_FLOW_BASE_URL }}
+      PACT_FLOW_TOKEN: ${{ vars.PACT_FLOW_TOKEN }}
     environment: production
     steps:
     - uses: actions/checkout@v4
@@ -24,5 +27,9 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
+    - name: Read a variable
+      run: echo "My PACT_FLOW_BASE_URL value is ${{ vars.PACT_FLOW_BASE_URL }}"
+    - name: Tell me a secret!
+      run: echo "My PACT_FLOW_TOKEN value is ${{ vars.PACT_FLOW_TOKEN }}"
     - name: Test
       run: dotnet test --no-build --verbosity normal
