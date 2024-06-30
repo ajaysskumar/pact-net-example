@@ -73,7 +73,7 @@ namespace PactNet.ConsumerOne.UnitTest
                 .WithHeader("Accept", "application/json")
                 .WillRespond()
                 .WithStatus(HttpStatusCode.NoContent);
- 
+
             _pactBuilder.Verify(ctx =>
             {
                 // Act
@@ -94,12 +94,14 @@ namespace PactNet.ConsumerOne.UnitTest
                 "ConsumerOne-Student API.json");
 
             var contractJson = File.ReadAllText(pactPath);
+            var pactFlowBaseUri = Environment.GetEnvironmentVariable("PACT_FLOW_BASE_URL"); // For testing purposes, you may even hardcode this value
+            var pactFlowToken = Environment.GetEnvironmentVariable("PACT_FLOW_TOKEN"); // For testing purposes, you may even hardcode this value
             var statusCode = await PactBrokerUtiliy.PublishPactContract(
-                "PACT_FLOW_BASE_URI",
+                pactFlowBaseUri,
                 "ConsumerOne",
                 "Student API",
                 contractJson,
-                "PACT_FLOW_TOKEN",
+                pactFlowToken,
                 Guid.NewGuid().ToString());
         }
     }
