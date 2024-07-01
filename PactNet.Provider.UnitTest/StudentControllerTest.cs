@@ -60,10 +60,6 @@ namespace PactNet.Provider.UnitTest
             {
                 Outputters = new List<IOutput>
                 {
-                    // NOTE: PactNet defaults to a ConsoleOutput, however
-                    // xUnit 2 does not capture the console output, so this
-                    // sample creates a custom xUnit outputter. You will
-                    // have to do the same in xUnit projects.
                     new XunitOutput(_output),
                 },
                 LogLevel = PactLogLevel.Information
