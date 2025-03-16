@@ -39,7 +39,7 @@ public class StudentConsumerEventTests
     }
 
     [Fact]
-    public void ReceivesExhibitorCreatedEvent()
+    public void ReceivesStudentCreatedEvent()
     {
         _messagePact
             .ExpectsToReceive("a StudentCreatedEvent")
